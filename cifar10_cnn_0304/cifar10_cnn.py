@@ -114,7 +114,7 @@ def main():
     test_writer = tf.summary.FileWriter('./log' + '/test', sess.graph)
 
     # 获取cifar10数据
-    cifar10_data_set = extract_cifar10.Cifar10DataSet('./data/')
+    cifar10_data_set = extract_cifar10.Cifar10DataSet('./data/', one_hot=True)
     test_images, test_labels = cifar10_data_set.test_data()
 
     # 进行训练

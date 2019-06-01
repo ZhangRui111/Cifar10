@@ -85,7 +85,7 @@ def dense_to_one_hot(labels_dense, num_classes):
 class Cifar10DataSet(object):
     """docstring for Cifar10DataSet"""
 
-    def __init__(self, data_dir):
+    def __init__(self, data_dir, one_hot=True):
         super(Cifar10DataSet, self).__init__()
         self.train_labels, self.train_images = extract_train_data(
             os.path.join(data_dir, 'cifar-10-batches-bin'))
@@ -93,8 +93,9 @@ class Cifar10DataSet(object):
 
         # print(self.train_labels.size)
 
-        self.train_labels = dense_to_one_hot(self.train_labels, NUM_CLASSES)
-        self.test_labels = dense_to_one_hot(self.test_labels, NUM_CLASSES)
+        if one_hot:
+            self.train_labels = dense_to_one_hot(self.train_labels, NUM_CLASSES)
+            self.test_labels = dense_to_one_hot(self.test_labels, NUM_CLASSES)
 
         # epoch完成次数
         self.epochs_completed = 0
@@ -128,6 +129,9 @@ class Cifar10DataSet(object):
 
     def test_data(self):
         return self.test_images, self.test_labels
+
+    def train_data(self):
+        return self.train_images, self.train_labels
 
 
 def main():
